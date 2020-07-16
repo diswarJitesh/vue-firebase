@@ -1,0 +1,47 @@
+<div>
+    <Headers></Headers>
+
+    <template>
+        <div id="dashboard">
+            <transition name="fade">
+                <CommentModal v-if="showCommentModal" :post="selectedPost" @close="toggleCommentModal()"></CommentModal>
+            </transition>
+            <!-- full post modal -->
+            <transition name="fade">
+                <FullPostModal v-if="showPostModal" :post="selectedPost" @close="toggleFullPostModal()"></FullPostModal>
+            </transition>
+            <section>
+                <div class="col1">
+                    <div class="profile">
+                        <h5>{{ userProfile.name | titleCase}}</h5>
+                        <p>{{ userProfile.title | titleCase}}</p>
+                        <div class="create-post">
+                            <p>create a post</p>
+                            <form @submit.prevent>
+                                <textarea v-model.trim="post.content"></textarea>
+                                <button @click="createPost()" :disabled="!post.content" class="button">post</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col2">
+                    <div v-if="posts.length">
+                        <div v-for="post in posts" :key="post.id" class="post">
+                            <h5>Posted By : {{ (auth.currentUser && auth.currentUser.uid == post.userId) ? 'You' : post.userName | titleCase }}</h5>
+                            <span>{{ post.createdOn | formatDate}}</span>
+                            <p>{{ post.content | trimLength}}</p>
+                            <ul>
+                                <li><a @click="toggleCommentModal(post)">comments {{ post.comments }}</a></li>
+                                <li><a @click="likePost(post.id, post.likes)">likes {{ post.likes }}</a></li>
+                                <li><a @click="toggleFullPostModal(post)">view full post</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <p class="no-results">There are currently no posts</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+</div>

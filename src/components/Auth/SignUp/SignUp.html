@@ -1,0 +1,53 @@
+<div id="login">
+    <section>
+        <div class="col1 signup-form">
+        </div>
+        <div class="col2 signup-form">
+            <form @submit.prevent>
+                <h1>Get Started</h1>
+                <div class="field-row">
+                    <label for="name">Name</label>
+                    <input v-model.trim="signupForm.name" type="text" placeholder="Your name here" id="name" />
+                    <div v-if="submitted && !$v.signupForm.name.required" class="invalid-feedback">Last Name is required
+                    </div>
+                </div>
+                <div class="field-row">
+                    <label for="title">Title</label>
+                    <input v-model.trim="signupForm.title" type="text" placeholder="Company" id="title" />
+                    <div v-if="submitted && !$v.signupForm.title.required" class="invalid-feedback">Title is required
+                    </div>
+                </div>
+                <div class="field-row">
+                    <label for="email2">Email</label>
+                    <input v-model.trim="signupForm.email" type="text" placeholder="you@email.com" id="email2" />
+                    <div v-if="!$v.signupForm.email.$error && submitted" class="invalid-feedback">
+                        <span v-if="!$v.signupForm.email.required">Email is required</span>
+                        <span v-if="!$v.signupForm.email.email">Email is invalid</span>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <label for="password2">Password</label>
+                    <input v-model.trim="signupForm.password" type="password" placeholder="min 6 characters"
+                        id="password2" />
+                    <div v-if="submitted && !$v.signupForm.password.$error" class="invalid-feedback">
+                        <span v-if="!$v.signupForm.password.required">Password is required</span>
+                        <span v-if="!$v.signupForm.password.minLength">Password must be at least 6 characters</span>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <label for="password3">Confirm Password</label>
+                    <input v-model.trim="signupForm.cpassword" type="password" placeholder="min 6 characters"
+                        id="password3" />
+                    <div v-if="submitted && !$v.signupForm.cpassword.$error" class="invalid-feedback">
+                        <span v-if="!$v.signupForm.cpassword.required">Confirm Password is required</span>
+                        <span v-else-if="!$v.signupForm.cpassword.sameAsPassword">Passwords must match</span>
+                    </div>
+                </div>
+                <button @click="signup($v)" class="button">Sign Up</button>
+                <div class="extras">
+                    <router-link to="/login">Back to Log In</router-link>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

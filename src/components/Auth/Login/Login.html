@@ -1,0 +1,36 @@
+<div id="login">
+    <section>
+        <div class="col1">
+        </div>
+        <div class="col2">
+            <form @submit.prevent autocomplete="off">
+                <h1>Welcome Back</h1>
+                <div class="field-row">
+                    <label for="email1">Email</label>
+                    <input v-model="loginForm.email" name="email" type="text" placeholder="your@email.com"
+                        id="email1" />
+                    <div v-if="!$v.loginForm.email.$error && submitted" class="invalid-feedback">
+                        <span v-if="!$v.loginForm.email.required">Email is required</span>
+                        <span v-if="!$v.loginForm.email.email">Email is invalid</span>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <label for="password1">Password</label>
+                    <input v-model.trim="loginForm.password" type="password" placeholder="******" id="password1" />
+                    <div v-if="!$v.loginForm.password.$error && submitted" class="invalid-feedback">
+                        <span v-if="!$v.loginForm.password.required">Password is required</span>
+                    </div>
+                </div>
+                <button class="button" @click="login($v)">Log In</button>
+                <div class="extras">
+                    <a>
+                        <router-link to="/reset-password">Forgot Password</router-link>
+                    </a>
+                    <a>
+                        <router-link to="/signup">Create an Account</router-link>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

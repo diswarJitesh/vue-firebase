@@ -1,0 +1,21 @@
+<div class="p-modal">
+  <div class="p-container">
+      <a @click="$emit('close')" class="close">X</a>
+      <div class="post">
+          <h5>{{ fullPost.userName | titleCase }}</h5>
+          <span>{{ fullPost.createdOn | formatDate }}</span>
+          <p>{{ fullPost.content }}</p>
+          <ul>
+              <li><a>comments {{ fullPost.comments }}</a></li>
+              <li><a>likes {{ fullPost.likes }}</a></li>
+          </ul>
+      </div>
+      <div v-show="postComments.length" class="comments">
+          <div v-for="comment in postComments" :key="comment.id" class="comment">
+              <p>{{ auth.currentUser.uid == comment.userId ? 'You' : comment.userName | titleCase }}</p>
+              <span>{{ comment.createdOn | formatDate }}</span>
+              <p>{{ comment.content }}</p>
+          </div>
+      </div>
+  </div>
+</div>
