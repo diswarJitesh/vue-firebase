@@ -1,3 +1,5 @@
+import store from '../../store';
+
 export default class SharedMixin {
     public static toastProps = {
         duration: 5000,
@@ -23,10 +25,10 @@ export default class SharedMixin {
         }, 500);
     }
 
-    public static handleErrorResponse (commit, toasted, error) {
+    public static handleErrorResponse (commit, error) {
         commit('setLoaderState', false)
-        if (toasted) {
-            SharedMixin.showToastMessage(toasted, 'error', error.message)
+        if (store && store.toasted) {
+            SharedMixin.showToastMessage(store.toasted, 'error', error.message)
         }
     }
 }
